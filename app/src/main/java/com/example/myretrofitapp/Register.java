@@ -4,72 +4,74 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myretrofitapp.Models.UserModel;
-import com.example.myretrofitapp.Retrofit.ApiClient;
-import com.example.myretrofitapp.Retrofit.ApiInterface;
+import com.example.myretrofitapp.Retrofit.RetrofitInterface;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Register extends AppCompatActivity {
-    @BindView(R.id.editxtreg_email) EditText editTextRegEmail;
-    @BindView(R.id.editxtreg_password) EditText editTextRegPassword;
-    @BindView(R.id.editxtreg_phone) EditText editTextRegPhone;
-    @BindView(R.id.editxtreg_name) EditText editTextRegName;
+    EditText edtEmail,edtName,edtPassword,edtPhone;
+   Button register;
+    Retrofit retrofit;
+    RetrofitInterface retrofitInterface;
+    String baseUrl = "http://192.168.2.18:3009";
 
-    ApiInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        ButterKnife.bind(this);
 
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        edtEmail = (EditText) findViewById(R.id.editxtreg_email);
+        edtName = (EditText) findViewById(R.id.editxtreg_name);
+        edtPassword = (EditText) findViewById(R.id.editxtreg_password);
+        edtPhone = (EditText) findViewById(R.id.editxtreg_phone);
+        register = (Button) findViewById(R.id.btn_register2);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        retrofitInterface = retrofit.create(RetrofitInterface.class);
+
     }
 
     public void registerUser(View v){
-        String name=editTextRegName.getText().toString();
-                String email=editTextRegEmail.getText().toString();
-                        String password=editTextRegPassword.getText().toString();
-                                String phone=editTextRegPhone.getText().toString();
+        String email = edtEmail.getText().toString().trim();
+        String password = edtPassword.getText().toString().trim();
+        String name = edtName.getText().toString().trim();
+        String phone = edtPhone.getText().toString().trim();
+        Call<String> call = retrofitInterface.Signup(name,phone,email,password);
 
-        UserModel userModel  = new UserModel(name,email,phone,password);
-        Call<UserModel> callRegister = apiInterface.registerUser(name,email
-                ,phone
-                ,password
-                );
-
-        callRegister.enqueue(new Callback<UserModel>() {
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                if(response.isSuccessful() && response.body()!=null){
-                    UserModel userModel = response.body();
-                    if(userModel.isSuccess()){
-                        Toast.makeText(Register.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        Toast.makeText(Register.this, "User could not be registered", Toast.LENGTH_SHORT).show();
-                    }
+            public void onResponse(Call<String> call, Response<String> response) {
 
+                if(response.body().contains("Success")){
+
+                    Toast.makeText(Register.this, "Successfully Signup", Toast.LENGTH_LONG).show();
                 }
-
+                else{
+                    Toast.makeText(Register.this, "Failed !", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<UserModel> call, Throwable t) {
-                Toast.makeText(Register.this, "Error, could not connect", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(Register.this, t.toString(),Toast.LENGTH_LONG).show();
             }
         });
 
-
+            }
     }
-}
