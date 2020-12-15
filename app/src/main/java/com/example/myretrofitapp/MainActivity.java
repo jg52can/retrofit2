@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myretrofitapp.Models.UserModel;
 import com.example.myretrofitapp.Retrofit.RetrofitInterface;
 
 import butterknife.ButterKnife;
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
-    String baseUrl = "http://192.168.2.18:3009";
+    String baseUrl = "http://192.168.2.18:3000";
 
 
     @Override
@@ -56,11 +55,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
 
-                if (response.code() == 200) {
+                if (response.body().contains("Success")) {
                     Toast.makeText(MainActivity.this, "Logged In Successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,detail.class));
                 } else {
+
                     Toast.makeText(MainActivity.this, "Failed ! check your username and password ", Toast.LENGTH_LONG).show();
-                }
+
+
+                    }
             }
 
             @Override

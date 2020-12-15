@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.myretrofitapp.Models.UserModel;
 import com.example.myretrofitapp.Retrofit.RetrofitInterface;
 
 import butterknife.BindView;
@@ -24,7 +23,7 @@ public class Register extends AppCompatActivity {
    Button register;
     Retrofit retrofit;
     RetrofitInterface retrofitInterface;
-    String baseUrl = "http://192.168.2.18:3009";
+    String baseUrl = "http://192.168.2.18:3000";
 
 
     @Override
