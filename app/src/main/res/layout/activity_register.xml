@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/appbackground"
     android:orientation="vertical"
+    android:background="@drawable/appbackground"
     tools:context=".Register">
 
     <androidx.cardview.widget.CardView
@@ -25,29 +26,9 @@
             android:layout_gravity="center|top"
             android:textSize="30sp" />
 
-        <EditText
-            android:id="@+id/editxtreg_name"
-            android:layout_gravity="center|top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Full name"
-            android:inputType="textPersonName" />
-        <EditText
-            android:id="@+id/editxtreg_phone"
-            android:layout_gravity="center|top"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Phone"
-            android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/editxtreg_email"
+        android:id="@+id/editxtreg_email"
             android:layout_gravity="center|top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,26 +38,49 @@
             android:hint="Your Email ID"
             android:inputType="textPersonName" />
 
-        <EditText
-            android:layout_gravity="center|top"
-            android:id="@+id/editxtreg_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword" />
+    <EditText
+        android:id="@+id/editxtreg_name"
+        android:layout_gravity="center|top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Full name"
+        android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/btn_register2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="250dp"
-            android:layout_marginLeft="45dp"
-            android:textStyle="bold"
-            android:text="Register" />
+
+    <EditText
+        android:id="@+id/editxtreg_password"
+        android:layout_gravity="center|top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editxtreg_phone"
+        android:layout_gravity="center|top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btn_register2"
+        android:onClick="registerUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:layout_marginLeft="45dp"
+        android:textStyle="bold"
+        android:text="Register" />
     </androidx.cardview.widget.CardView>
-
 
 </LinearLayout>
